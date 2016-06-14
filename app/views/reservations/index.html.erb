@@ -2,5 +2,6 @@
 
 <div class="container">
   <%= render partial: 'reservation_form', locals: { reservation: @reservation } %>
+  <small>*All tables seat up to 4, we cannot accomodate reservations for parties larger than 4.</small>
   <%= render partial: 'reservations_table', locals: { reservations: @reservations } %>
 </div>
