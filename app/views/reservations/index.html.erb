@@ -1,3 +1,4 @@
 <div class="container">
+  <%= render partial: 'reservation_form', locals: { reservation: @reservation } %>
   <%= render partial: 'reservations_table', locals: { reservations: @reservations } %>
 </div>
