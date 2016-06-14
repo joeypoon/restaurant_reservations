@@ -11,7 +11,9 @@ class ReservationsController < ApplicationController
       redirect_to root_path, notice: "Your table has been reserved."
     else
       @reservations = Reservation.active
-      flash.now[:alert] = "Sorry, our tables are full at that time."
+      if @reservation.errors.full_messages.include?("Capacity Max capacity reached")
+        flash.now[:alert] = "Sorry, our tables are full at that time."
+      end
       render :index
     end
   end
