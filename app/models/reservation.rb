@@ -14,7 +14,7 @@ class Reservation < ActiveRecord::Base
   private
 
     def at_capacity?
-      unless hour_block.count <= Reservation.MAX_CAPACITY
+      unless hour_block.count < Reservation.MAX_CAPACITY
         errors.add(:capacity, "Max capacity reached")
       end
     end

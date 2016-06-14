@@ -24,9 +24,12 @@ class ReservationTest < ActiveSupport::TestCase
   end
 
   test 'validates max capacity' do
-    (Reservation.MAX_CAPACITY + 1).times do
-      create :reservation, time: Time.now
+    time = Time.now
+    Reservation.MAX_CAPACITY.times do
+      create :reservation, time: time
     end
+    reservation = build_stubbed :reservation, time: time
+    assert_not reservation.valid?
     assert Reservation.last.hour_block.count <= Reservation.MAX_CAPACITY
   end
 end
