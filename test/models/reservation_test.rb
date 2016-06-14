@@ -15,4 +15,11 @@ class ReservationTest < ActiveSupport::TestCase
     reservation = build_stubbed :reservation, time: nil
     assert_not reservation.valid?
   end
+
+  test 'active scope gets correct reservations' do
+    good_reservation = create :reservation
+    bad_reservation = create :reservation, time: 2.hours.ago
+    assert Reservation.active.include?(good_reservation)
+    assert_not Reservation.active.include?(bad_reservation)
+  end
 end
