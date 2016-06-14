@@ -6,8 +6,14 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    @reservation = Reservation.create(reservations_params)
-    redirect_to root_path
+    @reservation = Reservation.new(reservations_params)
+    if @reservation.save
+      redirect_to root_path, notice: "Your table has been reserved."
+    else
+      @reservations = Reservation.active
+      flash.now[:alert] = "Sorry, our tables are full at that time."
+      render :index
+    end
   end
 
   private

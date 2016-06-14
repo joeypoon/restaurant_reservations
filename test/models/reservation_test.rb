@@ -22,4 +22,11 @@ class ReservationTest < ActiveSupport::TestCase
     assert Reservation.active.include?(good_reservation)
     assert_not Reservation.active.include?(bad_reservation)
   end
+
+  test 'validates max capacity' do
+    (Reservation.MAX_CAPACITY + 1).times do
+      create :reservation, time: Time.now
+    end
+    assert Reservation.last.hour_block.count <= Reservation.MAX_CAPACITY
+  end
 end
